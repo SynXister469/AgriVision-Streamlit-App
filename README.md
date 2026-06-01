@@ -28,4 +28,4 @@ Tomato, Potato, Bell Pepper
 
 ## 🚀 Try it live
 
-👉 [Click here to open the app](#) ← replace with your Streamlit URL
+👉 [Click here to open the app](https://agrivision-plantapp.streamlit.app/) 
