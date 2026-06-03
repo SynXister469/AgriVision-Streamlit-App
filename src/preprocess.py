@@ -33,7 +33,7 @@ for class_name in classes:
 
     print(f"{class_name}: {len(images)} images")
 
-    # -------- SPLIT DATA --------
+
     train_imgs, temp_imgs = train_test_split(
         images,
         test_size=(1 - TRAIN_RATIO),
