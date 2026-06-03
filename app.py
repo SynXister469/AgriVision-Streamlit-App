@@ -116,7 +116,6 @@ DISEASE_DB = {
         "chemical": "No treatment needed.",
         "severity": "Low",
     },
-    # ── Potato ───────────────────────────────────────────────
     "Potato___Early_blight": {
         "desc":     "Fungal disease (Alternaria solani) causing dark brown target-ring 'bullseye' lesions on older leaves first, working upward.",
         "organic":  "Remove and dispose of lower infected leaves. Apply neem oil or copper-based spray weekly. Avoid overhead watering.",
@@ -135,7 +134,6 @@ DISEASE_DB = {
         "chemical": "No treatment needed.",
         "severity": "Low",
     },
-    # ── Tomato ───────────────────────────────────────────────
     "Tomato_Bacterial_spot": {
         "desc":     "Bacterial disease (Xanthomonas) causing small, water-soaked spots on leaves and fruit that turn dark brown with yellow halos.",
         "organic":  "Use copper-based bactericides. Avoid overhead irrigation. Use certified disease-free seeds. Remove infected debris.",
@@ -253,7 +251,7 @@ def parse_class_name(raw: str) -> tuple[str, str]:
             crop, disease = s, s
 
    
-    disease = re.sub(r"([a-z])([A-Z])", r"\1 \2", disease)   # camelCase split
+    disease = re.sub(r"([a-z])([A-Z])", r"\1 \2", disease)  
     disease = re.sub(r"\s+", " ", disease).strip()
     crop    = re.sub(r"\s+", " ", crop).strip().title()
 
@@ -280,13 +278,12 @@ def load_classes() -> list[str]:
         st.error("classes.txt not found. Place it next to app.py.")
         st.stop()
     lines = CLASSES_PATH.read_text().strip().splitlines()
-    # Handle formats: "0: ClassName", "0 ClassName", or just "ClassName"
+
     classes = []
     for line in lines:
         line = line.strip()
         if not line:
             continue
-        # Strip leading "N:" or "N " prefix if present
         if line[0].isdigit():
             parts = line.split(None, 1)
             if len(parts) == 2:
@@ -333,8 +330,7 @@ def predict(image: Image.Image, interpreter, class_names: list) -> list[tuple]:
     
     h = w = 224
     try:
-        # Peek at input tensor shape via set_tensor with a dummy array first
-        # then read it back -- avoids _get_tensor_details entirely
+
         dummy = np.zeros((1, 224, 224, 3), dtype=np.float32)
         interpreter.set_tensor(input_idx, dummy)
         
@@ -359,10 +355,10 @@ def predict(image: Image.Image, interpreter, class_names: list) -> list[tuple]:
    
     try:
         output_idx = interpreter._interpreter.Outputs()[0]
-        # Verify it looks right
+
         t = interpreter.get_tensor(output_idx)
         if not (t.ndim == 2 and t.shape[1] == n):
-            output_idx = None  # wrong tensor, fall through to scan
+            output_idx = None 
     except Exception:
         output_idx = None
 
